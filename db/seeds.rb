@@ -12,7 +12,8 @@ User.create!(name:  "Example User",
   password_confirmation: "foobar",
   admin: true,
   activated: true,
-  activated_at: Time.zone.now
+  activated_at: Time.zone.now,
+  unique_id: 'example_user'
 )
 
 # 追加のユーザーをまとめて生成する
@@ -25,7 +26,8 @@ User.create!(name:  name,
     password:              password,
     password_confirmation: password,
     activated: true,
-    activated_at: Time.zone.now
+    activated_at: Time.zone.now,
+    unique_id: SecureRandom.hex(8)
   )
 end
 

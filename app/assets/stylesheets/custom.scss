@@ -119,6 +119,10 @@ footer {
 aside {
   section.user_info {
     margin-top: 20px;
+    span.user_unique_id{
+      font-size: 0.7em;
+      color: #777;
+    }
   }
   section {
     padding: 10px 0;

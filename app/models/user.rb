@@ -6,6 +6,8 @@ class User < ApplicationRecord
             foreign_key: 'followed_id', dependent: :destroy
   has_many :following, through: :active_relationships, source: :followed
   has_many :followers, through: :passive_relationships
+  has_many :replies, class_name: 'Micropost',
+            foreign_key: 'in_reply_to'
 
   attr_accessor :remember_token, :activation_token, :reset_token
 
@@ -67,9 +69,14 @@ class User < ApplicationRecord
     reset_sent_at < 2.hours.ago
   end
 
-  def feed
-    part_of_feed = "relationships.follower_id = :id or microposts.user_id = :id"
-    Micropost.joins(user: :followers).where(part_of_feed, { id: id })
+  def including_replies
+    #このコードは挙動が違う
+    # part_of_feed = "relationships.follower_id = :id or microposts.user_id = :id"
+    # Micropost.joins(user: :followers).where(part_of_feed, { id: id })
+    following_ids = "SELECT followed_id FROM relationships
+                      WHERE follower_id = :user_id"
+    Micropost.where("user_id IN (#{following_ids})
+                      OR user_id = :user_id OR in_reply_to = :user_id", user_id: id)
   end
 
   def follow(other_user)

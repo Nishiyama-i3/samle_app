@@ -100,13 +100,13 @@ class UserTest < ActiveSupport::TestCase
     archer = users(:archer)
     lana = users(:lana)
     lana.microposts.each do |post|
-      assert michael.feed.include?(post)
+      assert michael.including_replies.include?(post)
     end
     michael.microposts.each do |post|
-      assert michael.feed.include?(post)
+      assert michael.including_replies.include?(post)
     end
     archer.microposts.each do |post|
-      assert_not michael.feed.include?(post)
+      assert_not michael.including_replies.include?(post)
     end
   end
 end
