@@ -5,6 +5,7 @@ class RelationshipsController < ApplicationController
     @user = User.find(params[:followed_id])
     current_user.follow(@user)
     respond_to do |format|
+      FollowedMailer.with(user: @user, following_user: current_user).followed_mail.deliver_now
       format.html { redirect_to @user }
       format.js
     end
