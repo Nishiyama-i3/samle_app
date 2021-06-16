@@ -1,0 +1,35 @@
+<div class="container">
+  <div class="col-md-8 col-md-offset-2 message_container">
+    <% @messages.each do |message| %>
+      <% if message.sender == current_user %>
+        <div class="my_message">
+          <div class="message_content_wrap">
+            <%= simple_format(message.content, class: 'message_content') %>
+            <p><%= message.created_at.strftime("%Y-%m-%d %T") %></p>
+          </div>
+        </div>
+      <% else %>
+        <%= gravatar_for(message.sender) %>
+        <div class="your_message">
+          <div class="message_content_wrap">
+            <%= simple_format(message.content, class: 'message_content') %>
+            <p><%= message.created_at.strftime("%Y-%m-%d %T") %></p>
+          </div>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+  <%= form_with(model: @new_message, url: message_user_path(current_user)) do |f| %>
+    <div class="field">
+      <%= f.label :receiver_id, '誰にメッセージを送りますか？' %>
+      <%= f.select(:receiver_id, @option) %>
+    </div>
+    <div class="field">
+      <%= f.label :content, 'メッセージの内容' %>
+      <%= f.text_area(:content) %>
+    </div>
+    <div class="field">
+      <%= f.submit '送信', class: 'btn btn-primary' %>
+    </div>
+  <% end %>
+</div>

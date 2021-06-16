@@ -8,6 +8,13 @@ class User < ApplicationRecord
   has_many :followers, through: :passive_relationships
   has_many :replies, class_name: 'Micropost',
             foreign_key: 'in_reply_to'
+  has_many :active_messages, class_name: 'Message',
+            foreign_key: 'sender_id'
+  has_many :passive_messages, class_name: 'Message',
+            foreign_key: 'receiver_id'
+  has_many :receivers, through: :active_messages
+  has_many :senders, through: :passive_messages
+  
 
   attr_accessor :remember_token, :activation_token, :reset_token
 
@@ -89,6 +96,10 @@ class User < ApplicationRecord
 
   def following?(other_user)
     following.include?(other_user)
+  end
+
+  def related_users
+    (senders + receivers).uniq
   end
 
   private

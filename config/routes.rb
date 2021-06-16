@@ -10,6 +10,11 @@ Rails.application.routes.draw do
   resources :users do
     member do
       get :following, :followers
+      get 'message/new', to: 'messages#new'
+      get ':receiver_id/message', to: 'messages#show'
+      get 'message', to: 'messages#index'
+      post 'message', to: 'messages#create'
+      post ':receiver_id/message', to: 'messages#create'
     end
   end
   resources :account_activations, only: [:edit]

@@ -1,0 +1,17 @@
+<div class="container">
+  <div class="col-md-6 col-md-offset-3">
+    <%= form_with(model: @message, url: message_user_path(current_user)) do |f| %>
+      <div class="field">
+        <%= f.label :receiver_id, '誰にメッセージを送りますか？' %>
+        <%= f.select(:receiver_id, @options) %>
+      </div>
+      <div class="field">
+        <%= f.label :content, 'メッセージの内容' %>
+        <%= f.text_area(:content) %>
+      </div>
+      <div class="field">
+        <%= f.submit '送信', class: 'btn btn-primary' %>
+      </div>
+    <% end %>
+  </div>
+</div>

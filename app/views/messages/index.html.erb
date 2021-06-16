@@ -1,0 +1,8 @@
+<%= link_to "メッセージを送る", message_new_user_path(current_user) %>
+<% @related_users.each do |user| %>
+  <div class="room_list">
+    <%= gravatar_for(user, size: 30) %>
+    <div><%= link_to(user.name, "/users/#{current_user.id}/#{user.id}/message") %></div>
+  </div>
+  <hr>
+<% end %>

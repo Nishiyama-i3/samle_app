@@ -292,3 +292,38 @@ span.image {
     border: 0;
   }
 }
+
+.message_container{
+  min-height: 400px;
+  .my_message{
+    text-align: right;
+    margin: 10px 0;
+    .message_content_wrap{
+      margin-left: auto;
+      width: 50%;
+      background-color: hsl(190, 94%, 86%);
+      border-radius: 12px;
+      padding: 5px 10px 3px;
+      .message_content{
+        text-align-last: left;
+      }
+    }
+  }
+  .gravatar{
+    border-radius: 50%;
+  }
+  .your_message{
+    text-align: left;
+    .message_content_wrap{
+      width: 50%;
+      margin-right: auto;
+      border-radius: 12px;
+      padding: 5px 10px 3px;
+      background-color: rgb(90.9%, 90.9%, 90.9%);
+      .message_content{
+        text-align: right;
+      }
+    }
+  }
+}
+
